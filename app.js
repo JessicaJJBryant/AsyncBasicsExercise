@@ -49,3 +49,22 @@ async function leiaName() {
 }
 leiaName();
 
+// 4
+const p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('First Promise')
+    }, 2000);
+  });
+  const p2 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Second Promise')
+    }, 3000);
+  });
+  const p3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Third Promise')
+    }, 4000);
+  });
+Promise.all([p1, p2, p3]).then((arr) =>{
+    console.log(arr);
+})
