@@ -6,15 +6,13 @@ function lukeName() {
   console.log(`Question 1`);
   console.log(name1);
 }
-function luke(name1, callback) {
+function luke(n, callback) {
     setTimeout(() => {
-        callback(name1)
+        name1 = n;
+        callback();
     }, 1000);
 }
-luke(`Mark Hamill`, e => {
-    console.log(e);
-});
-lukeName();
+luke(`Mark Hamill`, lukeName);
 
 // 2
 let name2 = "Han Solo";
@@ -22,32 +20,36 @@ function hanName() {
   console.log(`Question 2`);
   console.log(name2);
 }
-function han(name2) {
+function han(n) {
     return new Promise ((resolve, reject) => {
         setTimeout(() => {
-            resolve(name2);
+            name2 = n;
+            resolve();
           }, 2000);
     });
 }
-han(`Harrison Ford`).then(e => console.log(e));
-hanName();
+han(`Harrison Ford`).then(hanName);
+;
 
 // 3
 let name3 = "Leia Organa";
-console.log(`Question 3`);
-console.log(name3);
-
-function leia(name3){
+function leiaName() {
+  console.log(`Question 3`);
+  console.log(name3);
+}
+function leia(n){
     return new Promise ((resolve, reject) => {
         setTimeout(() => {
-            resolve(name3);
+            name3 = n;
+            resolve();
           }, 3000);
     });
 }
-async function leiaName() {
-    console.log(await leia(`Carrie Fisher`));
+async function princess() {
+    await leia(`Carrie Fisher`);
+    leiaName();
 }
-leiaName();
+princess();
 
 // 4
 const p1 = new Promise((resolve, reject) => {
@@ -65,6 +67,7 @@ const p1 = new Promise((resolve, reject) => {
       resolve('Third Promise')
     }, 4000);
   });
-Promise.all([p1, p2, p3]).then((arr) =>{
-    console.log(arr);
-})
+  // Waits until the longest (time-wise) promise is complete before it runs the ".then" (AKA Callback function)
+Promise.all([p1, p2, p3])
+// The value passed in for the "arr" parameter are the values returned from each of the Promises still inside the array.
+.then((arr) => console.log(arr));
